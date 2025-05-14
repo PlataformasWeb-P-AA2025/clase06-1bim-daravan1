@@ -9,15 +9,18 @@ session = Session()
 
 
 lista_datos = []
-# Leer el archivo CSV y cargar los datos en una lista de diccionarios
 with open('data/saludos_mundo.csv', newline='', encoding='utf-8') as csvfile:
-    reader = csv.DictReader(csvfile)
+    reader = csv.DictReader(csvfile, delimiter='|')  # usa '|' como delimitador
+    reader.fieldnames = [campo.strip() for campo in reader.fieldnames]  # limpia encabezados
+
     for row in reader:
-        lista_datos.append(row)
+        fila_limpia = {k.strip(): v.strip() for k, v in row.items()}  # limpia claves y valores
+        lista_datos.append(fila_limpia)
+
 
 for i in range(len(lista_datos)):
     miSaludo = Saludo2()
-    miSaludo.saludo = (lista_datos[i]['saludo'])
+    miSaludo.mensaje = (lista_datos[i]['saludo'])
     miSaludo.tipo = (lista_datos[i]['tipo'])
     miSaludo.origen = (lista_datos[i]['origen'])
     session.add(miSaludo)

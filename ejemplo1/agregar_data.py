@@ -9,6 +9,8 @@ session = Session()
 # se crea un objeto de tipo
 # Saludo
 
+
+
 miSaludo = Saludo()
 miSaludo.mensaje = "Hola que tal"
 miSaludo.tipo = "informal"
